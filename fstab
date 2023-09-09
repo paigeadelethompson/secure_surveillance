@@ -1,0 +1,3 @@
+LABEL=BOOT /boot FAT defaults 0 0
+LABEL=ROOT / btrfs defaults 0 0 
+LABEL=HOME /home exfat defaults,nofail 0 0

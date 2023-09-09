@@ -1,0 +1,16 @@
+[Match]
+Name=eth0
+
+[Network]
+DHCP=yes
+LinkLocalAddressing=yes
+IPv4LLRoute=no
+DNSOverTLS=opportunistic
+DNSSEC=allow-downgrade
+LLDP=yes
+EmitLLDP=yes
+DNS=1.1.1.1
+MulticastDNS=yes
+UseMTU=yes
+Multicast=yes
+AllMulticast=yes
