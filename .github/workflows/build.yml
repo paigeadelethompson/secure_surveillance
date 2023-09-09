@@ -19,7 +19,7 @@ jobs:
       with:
         submodules: true
     - name: Create installer.bin
-     run: truncate -s 4G installer.bin
+      run: truncate -s 4G installer.bin
     - name: Create installer.bin
       run: sudo mknod -m 0660 /dev/loop254 b 7 254
     - name: Mount installer.bin as loopback device
