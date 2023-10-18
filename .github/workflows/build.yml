@@ -15,7 +15,7 @@ jobs:
         submodules: true
     - name: Get current date
       id: date
-      run: echo "stamp=$(date '+%s')" >> $GITHUB_ENV      
+      run: echo "stamp=$(date '+%s')" >> $GITHUB_ENV
     - name: Install tools
       run: sudo apt update ; sudo apt -y install python-is-python3 python3-pip exfatprogs parted exfat-fuse binfmt-support qemu-user-static
     - name: Create installer.bin
@@ -39,8 +39,8 @@ jobs:
     - name: Docker export
       run: cd /mnt ; sudo docker export rpi-image | sudo tar --ignore-failed-read --ignore-command-error --ignore-zeros --warning=all --exclude=home/* --exclude=home/ -xf -
     - name: Add configs
-      run: sudo rm /mnt/etc/machine-id ; sudo cp fstab /mnt/etc/ ; sudo cp issue.net /mnt/etc/issue.net ; sudo cp sshd_config /mnt/etc/ssh ; sudo cp 10-eth.network /mnt/etc/systemd/network
-    - name: Unmount 
+      run: sudo rm /mnt/etc/machine-id ; sudo cp fstab /mnt/etc/ ; sudo cp issue.net /mnt/etc/issue.net ; sudo cp sshd_config /mnt/etc/ssh ; sudo cp 10-eth.network /mnt/etc/systemd/network ; sudo mkdir /mnt/home/pi/motion_cameras ; sudo mkdir /mnt/home/pi/motion_logs ; sudo mkdir /mnt/home/pi/motion_video ; sudo rm /mnt/etc/motion/* ; sudo cp motion.conf /mnt/etc/motion ; sudo mkdir /mnt/home/pi/.ssh ; sudo echo "#" > /mnt/home/pi/.ssh/authorized_keys ; sudo cp hostname /mnt/etc
+    - name: Unmount
       run: sync ; sync ; sudo umount /mnt/boot ; sudo umount /mnt/home ; sudo umount /mnt
     - name: Disconnect installer.bin
       run: sudo losetup -D /dev/loop254

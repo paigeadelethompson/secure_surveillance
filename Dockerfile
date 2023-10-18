@@ -90,6 +90,8 @@ RUN apt -y install libc6:armhf libc6:armel
 
 RUN apt -y install motion
 
+RUN usermod -G pi motion
+
 RUN echo '/opt/vc/lib' > /etc/ld.so.conf.d/00-vmcs.conf
 
 RUN echo 'Defaults secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/vc/bin"' > /etc/sudoers.d/opt-path
