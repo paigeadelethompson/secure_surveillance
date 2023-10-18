@@ -35,7 +35,7 @@ jobs:
     - name: Docker build
       run: docker build -t surv:latest . 
     - name: Docker export
-      run: cd /mnt ; sudo docker save surv:latest | sudo tar -xvpf
+      run: cd /mnt ; sudo docker save surv:latest | sudo tar -xvpf -
     - name: Add configs
       run: sudo cpfstab /mnt/etc/ ; sudo cp issue.net /mnt/etc/issue.net ; sudo cp sshd_config /mnt/etc/ssh ; sudo cp 10-eth.network /mnt/etc/systemd/network
     - name: Unmount 
