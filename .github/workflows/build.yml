@@ -37,7 +37,7 @@ jobs:
     - name: Create docker image instance
       run: docker create --name rpi-image surv:latest
     - name: Docker export
-      run: cd /mnt ; sudo docker export rpi-image | sudo tar -xvpf -
+      run: cd /mnt ; sudo docker export rpi-image | sudo tar --ignore-failed-read --ignore-command-error --ignore-zeros -xvpf -
     - name: Add configs
       run: sudo cp fstab /mnt/etc/ ; sudo cp issue.net /mnt/etc/issue.net ; sudo cp sshd_config /mnt/etc/ssh ; sudo cp 10-eth.network /mnt/etc/systemd/network
     - name: Unmount 
@@ -47,7 +47,7 @@ jobs:
     - name: Move into directory
       run:  mkdir surveillance_system_os && mv installer.* surveillance_system_os/
     - name: Archive directory
-      run: zip -r surveillance_system_os-${{ env.stamp }}.zip surveillance_system_os
+      run: sudo zip -r surveillance_system_os-${{ env.stamp }}.zip surveillance_system_os/
     - name: Create GH release
       uses: actions/create-release@v1
       id: create_release
