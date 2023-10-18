@@ -22,7 +22,7 @@ echo "Creating a filesystem on ${ROOT}"
 mkfs.btrfs "${ROOT}"
 
 echo "Creating a filesystem on ${HOME}"
-mkfs.vfat "${HOME}"
+mkfs.vfat -F32 "${HOME}"
 
 parted ${DISK} print
 
