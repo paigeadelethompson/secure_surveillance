@@ -16,6 +16,8 @@ jobs:
     - name: Get current date
       id: date
       run: echo "stamp=$(date '+%s')" >> $GITHUB_ENV      
+    - name: Install tools
+      run: sudo apt update ; sudo apt -y install python-is-python3 python3-pip exfat-utils parted
     - name: Create installer.bin
       run: truncate -s 4G installer.bin
     - name: Create installer.bin
