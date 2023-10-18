@@ -29,6 +29,6 @@ parted ${DISK} print
 mkdir -p /mnt/
 mount "${ROOT}" /mnt/
 mkdir -p /mnt/boot
-mount "${EFI}" /mnt/boot/efi
+mount "${EFI}" /mnt/boot
 mkdir -p /mnt/home
 mount "${HOME}" /mnt/home
