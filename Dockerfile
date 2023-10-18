@@ -76,9 +76,9 @@ RUN echo $'ngpu_mem=16\narm_64bit=1\ndtoverlay=vc4-fkms-v3d' > /boot/config.txt
 
 RUN cd /tmp
 
-RUN git clone https://github.com/raspberrypi/userland
+RUN git clone https://github.com/raspberrypi/userland /usr/src/userland
 
-RUN cd userland ; ./buildme --aarch64
+RUN cd /usr/src/userland ; ./buildme --aarch64
 
 RUN dpkg --add-architecture armhf
 
