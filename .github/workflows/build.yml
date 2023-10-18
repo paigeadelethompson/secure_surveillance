@@ -17,7 +17,7 @@ jobs:
       id: date
       run: echo "stamp=$(date '+%s')" >> $GITHUB_ENV      
     - name: Install tools
-      run: sudo apt update ; sudo apt -y install python-is-python3 python3-pip exfatprogs parted exfat-fuse
+      run: sudo apt update ; sudo apt -y install python-is-python3 python3-pip exfatprogs parted exfat-fuse binfmt-support qemu-user-static
     - name: Create installer.bin
       run: truncate -s 5G installer.bin
     - name: Create installer.bin
@@ -26,6 +26,12 @@ jobs:
       run: sudo losetup -P /dev/loop254 installer.bin
     - name: Build base installer image
       run: sudo chmod +x create-debian-usb-key.sh && sudo ./create-debian-usb-key.sh /dev/loop254
+    - name: Docker builder
+      run: docker create --name debian-builder arm64v8/debian:stable
+    - name: Add QEMU static
+      run: docker cp /usr/bin/qemu-aarch64-static debian-builder:/usr/bin/qemu-aarch64-static
+    - name: Commit builder
+      run: docker commit debian-builder arm64v8/debian:stable
     - name: Docker build
       run: docker build -t surv:latest . 
     - name: Docker export
