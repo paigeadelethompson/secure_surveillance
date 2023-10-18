@@ -30,5 +30,5 @@ mkdir -p /mnt/
 mount "${ROOT}" /mnt/
 mkdir -p /mnt/boot
 mount "${EFI}" /mnt/boot
-mkdir -p /mnt/home
-mount "${HOME}" /mnt/home
+mkdir -p /mnt/home/pi
+mount "${HOME}" /mnt/home/pi
