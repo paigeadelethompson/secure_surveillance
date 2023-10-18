@@ -39,7 +39,7 @@ jobs:
     - name: Docker export
       run: cd /mnt ; sudo docker export rpi-image | sudo tar --ignore-failed-read --ignore-command-error --ignore-zeros --warning=all --exclude=home/* --exclude=home/ -xf -
     - name: Add configs
-      run: sudo cp fstab /mnt/etc/ ; sudo cp issue.net /mnt/etc/issue.net ; sudo cp sshd_config /mnt/etc/ssh ; sudo cp 10-eth.network /mnt/etc/systemd/network
+      run: sudo rm /mnt/etc/machine-id ; sudo cp fstab /mnt/etc/ ; sudo cp issue.net /mnt/etc/issue.net ; sudo cp sshd_config /mnt/etc/ssh ; sudo cp 10-eth.network /mnt/etc/systemd/network
     - name: Unmount 
       run: sync ; sync ; sudo umount /mnt/boot ; sudo umount /mnt/home ; sudo umount /mnt
     - name: Disconnect installer.bin
