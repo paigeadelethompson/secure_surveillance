@@ -40,7 +40,7 @@ RUN groupadd gpio
 
 RUN groupadd -g 5000 pi
 
-RUN useradd -u 4000 -s /bin/bash -d /home/pi -G pi,sudo,video,adm,dialout,cdrom,audio,plugdev,games,users,input,netdev,spi,i2c,gpio pi
+RUN useradd -u 4000 -g pi -s /bin/bash -d /home/pi -G sudo,video,adm,dialout,cdrom,audio,plugdev,games,users,input,netdev,spi,i2c,gpio pi
 
 RUN chown pi:pi /home/pi
 
