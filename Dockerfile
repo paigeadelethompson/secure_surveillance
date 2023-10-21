@@ -58,12 +58,6 @@ RUN apt -y install openssh-server
 
 RUN systemctl enable ssh
 
-ENV WANT_32BIT=1 
-
-ENV WANT_64BIT=1 
-
-ENV WANT_PI4=1
-
 RUN cd /usr/local/bin && wget https://raw.githubusercontent.com/raspberrypi/rpi-update/master/rpi-update
 
 ADD sources.list /etc/apt
