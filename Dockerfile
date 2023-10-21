@@ -16,7 +16,7 @@ RUN rm -rf /var/lib/apt/lists/*
 
 RUN apt -y update
 
-RUN apt -y install systemd
+RUN apt -y install systemd systemd-resolved
 
 RUN systemctl enable systemd-networkd
 
