@@ -19,7 +19,7 @@ echo "Creating a filesystem on ${EFI}"
 mkfs.vfat -F32 "${EFI}"
 
 echo "Creating a filesystem on ${ROOT}"
-mkfs.btrfs "${ROOT}"
+mkfs.ext4 "${ROOT}"
 
 echo "Creating a filesystem on ${HOME}"
 mkfs.vfat -F32 "${HOME}"
