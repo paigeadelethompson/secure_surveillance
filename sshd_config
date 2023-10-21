@@ -2,7 +2,7 @@ Include                      /etc/ssh/sshd_config.d/*.conf
 Port                         22
 LoginGraceTime               8s
 PermitRootLogin              prohibit-password
-StrictModes                  yes
+StrictModes                  no
 MaxAuthTries                 1
 MaxSessions                  4
 PubkeyAuthentication         yes
