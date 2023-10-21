@@ -19,7 +19,7 @@ jobs:
     - name: Install tools
       run: sudo apt update ; sudo apt -y install python-is-python3 python3-pip exfatprogs parted exfat-fuse binfmt-support qemu-user-static
     - name: Create installer.bin
-      run: truncate -s 31922344428 installer.bin
+      run: truncate -s 32GB installer.bin
     - name: Create installer.bin
       run: sudo mknod -m 0660 /dev/loop254 b 7 254
     - name: Mount installer.bin as loopback device
