@@ -96,6 +96,8 @@ RUN apt -y update
 
 RUN apt -y install libc6:armhf libc6:armel
 
+RUN usermod -U root
+
 RUN apt -y install motion
 
 RUN usermod -G pi motion
