@@ -78,7 +78,7 @@ RUN apt -y install curl binutils cmake git build-essential
 
 RUN echo y | /usr/local/bin/rpi-update
 
-RUN echo 'dwc_otg.lpm_enable=0 console=ttyAMA1,115200n8 console=tty1 root=LABEL=ROOT rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait net.ifnames=0' > /boot/cmdline.txt
+RUN echo 'dwc_otg.lpm_enable=0 console=ttyAMA1,115200n8 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait net.ifnames=0' > /boot/cmdline.txt
 
 RUN echo $'ngpu_mem=16\narm_64bit=1\ndtoverlay=vc4-fkms-v3d' > /boot/config.txt
 
