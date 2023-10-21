@@ -2,6 +2,10 @@ FROM arm64v8/debian:stable
 
 ENV DEBIAN_FRONTEND noninteractive
 
+ENV WANT_PI4=1
+
+ENV WANT_PI5=1
+
 RUN apt -y autoremove
 
 RUN rm -rf /var/lib/apt/lists/*
