@@ -31,5 +31,6 @@ qemu-system-aarch64                                                             
 -dtb krn/bcm2710-rpi-3-b.dtb                                                                                                                         \
 -drive format=raw,file=installer.bin                                                                                                                 \
 -serial mon:stdio                                                                                                                                    \
--append "root=/dev/mmcblk0p2 rootfstype=ext4 rootwait console=ttyAMA1,115200n8 fsck.repair=yes net.ifnames=0 elevator=deadline dwc_otg.lpm_enable=0" 
+-append "root=/dev/mmcblk0p2 rootfstype=ext4 rootwait console=ttyAMA1,115200n8 fsck.repair=yes net.ifnames=0 elevator=deadline dwc_otg.lpm_enable=0" \
+-netdev user,id=net0,net=169.254.0.0/16,dhcpstart=169.254.0.2,hostfwd=tcp::2222-:22 -device usb-net,netdev=net0
 ```
