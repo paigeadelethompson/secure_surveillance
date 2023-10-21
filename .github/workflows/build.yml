@@ -39,7 +39,7 @@ jobs:
     - name: Docker export
       run: cd /mnt ; sudo docker export rpi-image | sudo tar --ignore-failed-read --ignore-command-error --ignore-zeros --warning=all --exclude=home/* --exclude=home/ -xf -
     - name: Add configs
-      run: sudo rm /mnt/etc/machine-id ; sudo touch /mnt/etc/machine-id ; sudo cp fstab /mnt/etc/ ; sudo cp issue.net /mnt/etc/issue.net ; sudo cp sshd_config /mnt/etc/ssh ; sudo cp 10-eth.network /mnt/etc/systemd/network ; sudo mkdir /mnt/home/pi/motion_cameras ; sudo mkdir /mnt/home/pi/motion_logs ; sudo mkdir /mnt/home/pi/motion_video ; sudo rm /mnt/etc/motion/* ; sudo cp motion.conf /mnt/etc/motion ; sudo mkdir /mnt/home/pi/.ssh ; sudo touch /mnt/home/pi/.ssh/authorized_keys ; sudo cp hostname /mnt/etc
+      run: sudo rm /mnt/etc/machine-id ; sudo touch /mnt/etc/machine-id ; sudo cp fstab /mnt/etc/ ; sudo cp issue.net /mnt/etc/issue.net ; sudo cp sshd_config /mnt/etc/ssh ; sudo cp 10-eth.network /mnt/etc/systemd/network ; sudo mkdir /mnt/home/pi/motion_cameras ; sudo mkdir /mnt/home/pi/motion_logs ; sudo mkdir /mnt/home/pi/motion_video ; sudo rm /mnt/etc/motion/* ; sudo cp motion.conf /mnt/etc/motion ; sudo mkdir /mnt/home/pi/.ssh ; sudo touch /mnt/home/pi/.ssh/authorized_keys ; sudo cp hostname /mnt/etc ; sudo cp sudoers /mnt/etc ; sudo cp 10-usb.network /etc/systemd/network
     - name: Unmount
       run: sync ; sync ; sudo umount /mnt/boot ; sudo umount /mnt/home/pi ; sudo umount /mnt
     - name: Disconnect installer.bin
