@@ -24,13 +24,13 @@ losetup -D /dev/loop254
 - Start QEmu 
 
 ```
-qemu-system-aarch64                                                                                                                                  \
--nographic                                                                                                                                           \
--M raspi3b                                                                                                                                           \
--kernel krn/kernel8.img                                                                                                                              \
--dtb krn/bcm2710-rpi-3-b.dtb                                                                                                                         \
--drive format=raw,file=installer.bin                                                                                                                 \
--serial mon:stdio                                                                                                                                    \
--append "root=/dev/mmcblk0p2 rootfstype=ext4 rootwait console=ttyAMA1,115200n8 fsck.repair=yes net.ifnames=0 elevator=deadline dwc_otg.lpm_enable=0" \
--netdev user,id=net0,net=169.254.0.0/16,dhcpstart=169.254.0.2,hostfwd=tcp::2222-:22 -device usb-net,netdev=net0
+qemu-system-aarch64                                                                                                                        \
+-M raspi3b                                                                                                                                 \
+-kernel krn/kernel8.img                                                                                                                    \
+-dtb krn/bcm2710-rpi-3-b.dtb                                                                                                               \
+-drive format=raw,file=installer.bin                                                                                                       \
+-append "root=/dev/mmcblk0p2 rootfstype=ext4 rootwait console=ttyAMA1,115200 console=tty1 fsck.repair=yes net.ifnames=0 elevator=deadline" \
+-netdev user,id=net0,net=169.254.0.0/16,dhcpstart=169.254.0.2,hostfwd=tcp::2222-:22                                                        \
+-device usb-net,netdev=net0                                                                                                                \
+-device usb-kbd
 ```
