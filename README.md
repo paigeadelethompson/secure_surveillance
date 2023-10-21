@@ -24,12 +24,12 @@ losetup -D /dev/loop254
 - Start QEmu 
 
 ```
-qemu-system-aarch64                                    \
--nographic                                             \
--M raspi3b                                             \
--kernel krn/kernel8.img                                \
--dtb krn/bcm2710-rpi-3-b.dtb                           \
--drive format=raw,file=installer.bin                   \
--serial mon:stdio                                      \
--append "console=ttyAMA1,115200n8 root=/dev/mmcblk0p2"
+qemu-system-aarch64                                                                                                                                  \
+-nographic                                                                                                                                           \
+-M raspi3b                                                                                                                                           \
+-kernel krn/kernel8.img                                                                                                                              \
+-dtb krn/bcm2710-rpi-3-b.dtb                                                                                                                         \
+-drive format=raw,file=installer.bin                                                                                                                 \
+-serial mon:stdio                                                                                                                                    \
+-append "root=/dev/mmcblk0p2 rootfstype=ext4 rootwait console=ttyAMA1,115200n8 fsck.repair=yes net.ifnames=0 elevator=deadline dwc_otg.lpm_enable=0" 
 ```
