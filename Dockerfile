@@ -2,6 +2,10 @@ FROM arm64v8/debian:stable
 
 ENV DEBIAN_FRONTEND noninteractive
 
+ENV WANT_32BIT=1
+
+ENV WANT_64BIT=1
+
 ENV WANT_PI4=1
 
 ENV WANT_PI5=1
