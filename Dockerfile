@@ -18,6 +18,8 @@ RUN rm /etc/apt/sources.list.d/debian.sources
 
 ADD sources.list /etc/apt/sources.list.d/sources.list
 
+ADD no_reccomends.conf /etc/apt/apt.conf.d/no_reccomends.conf
+
 RUN dpkg --add-architecture armhf
 
 RUN dpkg --add-architecture armel
