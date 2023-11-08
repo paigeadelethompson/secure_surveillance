@@ -1,7 +1,8 @@
+Defaults secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/vc/bin"
+
 root    ALL=(ALL:ALL) ALL
 %sudo   ALL=(ALL:ALL) ALL
 pi      ALL=NOPASSWD: ALL
 
-Defaults secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/vc/bin"
 
-@includedir /etc/sudoers.d
+
