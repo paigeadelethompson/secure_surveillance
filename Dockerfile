@@ -96,6 +96,8 @@ RUN apt -y autoremove
 
 RUN rm -rf /var/lib/apt/lists/*
 
+RUN rm -rf /home
+
 # Distribution specific additions
 
 RUN usermod -G pi motion
