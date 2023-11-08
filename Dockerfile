@@ -26,7 +26,7 @@ RUN apt -y update
 
 ADD packages.txt /tmp/packages.txt
 
-RUN apt --no-install-recommends -y install $(cat /tmp/packages.txt | tr '\n' ' ')
+RUN apt -y install $(cat /tmp/packages.txt | tr '\n' ' ')
 
 ADD startup.txt /tmp/startup.txt
 

@@ -3,7 +3,6 @@ systemd-resolved
 nano
 emacs
 vim
-docker.io
 ffmpeg
 svt-av1
 libaom-dev
