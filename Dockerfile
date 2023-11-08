@@ -18,8 +18,6 @@ RUN rm /etc/apt/sources.list.d/debian.sources
 
 ADD sources.list /etc/apt/sources.list.d/sources.list
 
-ADD no_reccomends.conf /etc/apt/apt.conf.d/99no_reccomends
-
 RUN dpkg --add-architecture armhf
 
 RUN dpkg --add-architecture armel
@@ -28,7 +26,7 @@ RUN apt -y update
 
 ADD packages.txt /tmp/packages.txt
 
-RUN apt -y install $(cat /tmp/packages.txt | tr '\n' ' ')
+RUN apt --no-install-recommends -y install $(cat /tmp/packages.txt | tr '\n' ' ')
 
 ADD startup.txt /tmp/startup.txt
 
