@@ -37,7 +37,7 @@ jobs:
     - name: Create BOOT filesystem
       run: sudo mkfs.vfat -F32 /dev/loop254p1
     - name: Create SYSTEM filesystem
-      run: sudo mkfs.ext4 /dev/loop254p2
+      run: sudo mkfs.btrfs /dev/loop254p2
     - name: Create HOME filesystem
       run: sudo mkfs.exfat /dev/loop254p3
     - name: Mount SYSTEM filesystem
@@ -57,17 +57,19 @@ jobs:
     - name: Create docker image instance
       run: docker create --name rpi-image surv:latest
     - name: Docker export
-      run: cd /mnt ; sudo docker export rpi-image | sudo tar --exclude=etc/machine-id --exclude=home/* --exclude=home/ -xf -
+      run: cd /mnt ; sudo docker export rpi-image | sudo tar --exclude=etc/machine-id -xf -
     - name: Home directories
-      run: mkdir /mnt/home/pi/ssh /mnt/home/pi/motion_cam /mnt/home/pi/motion_logs /mnt/home/pi/motion_video /mnt/home/pi/motion_cameras
+      run: sudo mkdir /mnt/home/pi/ssh /mnt/home/pi/motion_cam /mnt/home/pi/motion_logs /mnt/home/pi/motion_video /mnt/home/pi/motion_cameras
     - name: authorized_keys empty file
       run: sudo touch /mnt/home/pi/ssh/authorized_keys
     - name: Create empty machine-id
       run: sudo touch /mnt/etc/machine-id
     - name: Copy hosts file
       run: sudo cp hosts /mnt/etc
+    - name: Copy hostname file
+      run: sudo cp hostname /mnt/etc
     - name: Unmount
-      run: sync && sync && sudo umount /mnt/boot && sudo umount /mnt/home/pi && sudo umount /mnt
+      run: sudo sync && sudo sync && sudo umount /mnt/boot && sudo umount /mnt/home/pi && sudo umount /mnt
     - name: Disconnect installer.bin
       run: sudo losetup -D /dev/loop254
     - name: Move into directory
