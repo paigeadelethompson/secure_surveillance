@@ -1,3 +1,3 @@
-LABEL=HOME /boot/ vfat defaults,noauto 0 0
-LABEL=SYSTEM / ext4 defaults 0 0 
-LABEL=HOME /home/pi exfat defaults,nofail,uid=4000,gid=5000,dmask=007,fmask=117 0 0
+/dev/mmcblk0p1 /boot/ vfat defaults,noauto 0 0
+/dev/mmcblk0p2 / ext4 defaults 0 0 
+/dev/mmcblk0p3 /home/pi exfat defaults,nofail,uid=4000,gid=5000,dmask=007,fmask=117 0 0

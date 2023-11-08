@@ -63,7 +63,7 @@ jobs:
     - name: Create docker image instance
       run: docker create --name rpi-image surv:latest
     - name: Docker export
-      run: cd /mnt ; sudo docker export rpi-image | sudo tar --exclude=etc/machine-id --exclude=etc/*_key* -xf -
+      run: cd /mnt ; sudo docker export rpi-image | sudo tar --exclude=etc/machine-id --exclude=etc/ssh/*_key* --exclude=etc/ssh/moduli -xf -
     - name: Home directories
       run: sudo mkdir /mnt/home/pi/ssh /mnt/home/pi/motion_cam /mnt/home/pi/motion_logs /mnt/home/pi/motion_video /mnt/home/pi/motion_cameras
     - name: authorized_keys empty file

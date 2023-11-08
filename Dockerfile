@@ -30,7 +30,11 @@ RUN apt -y install $(cat /tmp/packages.txt | tr '\n' ' ')
 
 ADD startup.txt /tmp/startup.txt
 
+ADD regenerate_ssh_host_keys.service /usr/lib/systemd/system
+
 RUN cat /tmp/startup.txt | xargs -i systemctl enable {}
+
+RUN systemctl enable regenerate_ssh_host_keys
 
 ADD sshd_config /etc/ssh/sshd_config.d/sshd_config
 
