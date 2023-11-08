@@ -41,3 +41,6 @@ libc6:armel
 zsh
 iproute2
 less
+parted
+cron
+logrotate

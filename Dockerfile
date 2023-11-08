@@ -36,6 +36,8 @@ RUN cat /tmp/startup.txt | xargs -i systemctl enable {}
 
 RUN systemctl enable regenerate_ssh_host_keys
 
+ADD logrotate.conf /etc/logrotate.d/logrotate.conf
+
 ADD sshd_config /etc/ssh/sshd_config.d/sshd_config
 
 ADD sudoers /etc/sudoers.d
@@ -48,7 +50,7 @@ ADD 10-eth.network /etc/systemd/network
 
 ADD 10-usb.network /etc/systemd/network
 
-ADD 10-eth.network /etc/systemd/network
+ADD 10-enx.network /etc/systemd/network
 
 RUN mkdir /home/pi
 

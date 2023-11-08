@@ -2,3 +2,4 @@ ssh
 motion
 systemd-networkd
 systemd-resolved
+cron

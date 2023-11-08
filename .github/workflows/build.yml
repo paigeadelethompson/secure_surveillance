@@ -19,7 +19,7 @@ jobs:
     - name: Install tools
       run: sudo apt update ; sudo apt -y install python-is-python3 python3-pip exfatprogs parted exfat-fuse binfmt-support qemu-user-static
     - name: Create installer.bin
-      run: truncate -s 16384M installer.bin
+      run: truncate -s 8192M installer.bin
     - name: Create loopback device
       run: sudo mknod -m 0660 /dev/loop254 b 7 254
     - name: Mount installer.bin as loopback device
@@ -29,9 +29,9 @@ jobs:
     - name: Create BOOT partition
       run: sudo parted /dev/loop254 mkpart primary fat32 1 256
     - name: Create SYSTEM partition
-      run: sudo parted /dev/loop254 mkpart primary ext2 256 4096
+      run: sudo parted /dev/loop254 mkpart primary ext2 256 3128
     - name: Create HOME partition
-      run: sudo parted /dev/loop254 mkpart primary fat32 4096 16384
+      run: sudo parted /dev/loop254 mkpart primary fat32 3128 8192
     - name: Label BOOT 
       run: sudo parted /dev/loop254 name 1 BOOT
     - name: Label SYSTEM
@@ -65,11 +65,13 @@ jobs:
     - name: Docker export
       run: cd /mnt ; sudo docker export rpi-image | sudo tar --exclude=etc/machine-id --exclude=etc/ssh/*_key* --exclude=etc/ssh/moduli -xf -
     - name: Home directories
-      run: sudo mkdir /mnt/home/pi/ssh /mnt/home/pi/motion_cam /mnt/home/pi/motion_logs /mnt/home/pi/motion_video /mnt/home/pi/motion_cameras
+      run: sudo mkdir /mnt/home/pi/ssh mnt/home/pi/system_logs /mnt/home/pi/motion_cam /mnt/home/pi/motion_logs /mnt/home/pi/motion_video /mnt/home/pi/motion_cameras
     - name: authorized_keys empty file
       run: sudo touch /mnt/home/pi/ssh/authorized_keys
     - name: Create empty machine-id
       run: sudo touch /mnt/etc/machine-id
+    - name: Motion camera example configuration file
+      run: sudo cp camera.conf.example mnt/home/pi
     - name: Copy hosts file
       run: sudo cp hosts /mnt/etc
     - name: Copy hostname file
