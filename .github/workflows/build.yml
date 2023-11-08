@@ -37,7 +37,7 @@ jobs:
     - name: Create BOOT filesystem
       run: sudo mkfs.vfat -F32 /dev/loop254p1
     - name: Create SYSTEM filesystem
-      run: sudo mkfs.btrfs /dev/loop254p2
+      run: sudo mkfs.ext4 /dev/loop254p2
     - name: Create HOME filesystem
       run: sudo mkfs.exfat /dev/loop254p3
     - name: Mount SYSTEM filesystem

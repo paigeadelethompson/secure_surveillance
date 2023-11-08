@@ -1,1 +1,1 @@
-dwc_otg.lpm_enable=0 console=ttyAMA1,115200n8 console=tty1 root=/dev/mmcblk0p2 rootfstype=btrfs elevator=deadline fsck.repair=yes rootwait net.ifnames=0
+dwc_otg.lpm_enable=0 console=ttyAMA1,115200n8 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait net.ifnames=0
