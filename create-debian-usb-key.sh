@@ -6,7 +6,7 @@ EFI="${DISK}p1"
 ROOT="${DISK}p2"
 HOME="${DISK}p3"
 
-parted ${DISK} mklabel gpt 
+parted ${DISK} mklabel gpt
 parted ${DISK} mkpart primary fat32 1 256
 parted ${DISK} name 1 BOOT
 parted ${DISK} mkpart primary ext2 256 4096

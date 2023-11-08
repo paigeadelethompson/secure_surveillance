@@ -19,13 +19,33 @@ jobs:
     - name: Install tools
       run: sudo apt update ; sudo apt -y install python-is-python3 python3-pip exfatprogs parted exfat-fuse binfmt-support qemu-user-static
     - name: Create installer.bin
-      run: truncate -s 32000M installer.bin
+      run: truncate -s 16384M installer.bin
     - name: Create installer.bin
       run: sudo mknod -m 0660 /dev/loop254 b 7 254
     - name: Mount installer.bin as loopback device
       run: sudo losetup -P /dev/loop254 installer.bin
-    - name: Build base installer image
-      run: sudo chmod +x create-debian-usb-key.sh && sudo ./create-debian-usb-key.sh /dev/loop254
+    - name: Create GPT disk label
+      run: sudo parted /dev/loop254 mklabel gpt
+    - name: Create BOOT partition
+      run: sudo parted /dev/loop254 mkpart primary fat32 1 256
+    - name: Create SYSTEM partition
+      run: sudo parted /dev/loop254 mkpart primary ext2 256 4096
+    - name: Create HOME partition
+      run: sudo parted /dev/loop254 mkpart primary fat32 4096 16384
+    - name: Toogle boot flag on boot partition
+      run: sudo parted /dev/loop254 set 1 boot on
+    - name: Create BOOT filesystem
+      run: sudo mkfs.vfat -F32 /dev/loop254p1
+    - name: Create SYSTEM filesystem
+      run: sudo mkfs.ext4 /dev/loop254p2
+    - name: Create HOME filesystem
+      run: sudo mkfs.exfat /dev/loop254p3
+    - name: Mount SYSTEM filesystem
+      run: sudo mount /dev/loop254p2 /mnt/
+    - name: Mount BOOT filesystem
+      run: sudo mkdir -p /mnt/boot && sudo mount /dev/loop254p1 /mnt/boot
+    - name: Mount HOME filesystem
+      run: sudo mkdir -p /mnt/home/pi && sudo mount.exfat-fuse /dev/loop254p3 /mnt/home/pi
     - name: Docker builder
       run: docker create --name debian-builder arm64v8/debian:stable
     - name: Add QEMU static
@@ -37,11 +57,17 @@ jobs:
     - name: Create docker image instance
       run: docker create --name rpi-image surv:latest
     - name: Docker export
-      run: cd /mnt ; sudo docker export rpi-image | sudo tar --ignore-failed-read --ignore-command-error --ignore-zeros --warning=all --exclude=home/* --exclude=home/ -xf -
-    - name: Add configs
-      run: sudo rm /mnt/etc/machine-id ; sudo touch /mnt/etc/machine-id ; sudo cp fstab /mnt/etc/ ; sudo cp issue.net /mnt/etc/issue.net ; sudo cp sshd_config /mnt/etc/ssh ; sudo cp 10-eth.network /mnt/etc/systemd/network ; sudo mkdir /mnt/home/pi/motion_cameras ; sudo mkdir /mnt/home/pi/motion_logs ; sudo mkdir /mnt/home/pi/motion_video ; sudo rm /mnt/etc/motion/* ; sudo cp motion.conf /mnt/etc/motion ; sudo mkdir /mnt/home/pi/.ssh ; sudo touch /mnt/home/pi/.ssh/authorized_keys ; sudo cp hostname /mnt/etc ; sudo cp sudoers /mnt/etc ; sudo cp 10-usb.network /mnt/etc/systemd/network ; sudo cp hosts /mnt/etc/hosts ; sudo rm /mnt/etc/resolv.conf
+      run: cd /mnt ; sudo docker export rpi-image | sudo tar --exclude=etc/machine-id --exclude=home/* --exclude=home/ -xf -
+    - name: Home directories
+      run: mkdir /mnt/home/pi/ssh /mnt/home/pi/motion_cam /mnt/home/pi/motion_logs /mnt/home/pi/motion_video /mnt/home/pi/motion_cameras
+    - name: authorized_keys empty file
+      run: sudo touch /mnt/home/pi/ssh/authorized_keys
+    - name: Create empty machine-id
+      run: sudo touch /mnt/etc/machine-id
+    - name: Copy hosts file
+      run: sudo cp hosts /mnt/etc
     - name: Unmount
-      run: sync ; sync ; sudo umount /mnt/boot ; sudo umount /mnt/home/pi ; sudo umount /mnt
+      run: sync && sync && sudo umount /mnt/boot && sudo umount /mnt/home/pi && sudo umount /mnt
     - name: Disconnect installer.bin
       run: sudo losetup -D /dev/loop254
     - name: Move into directory

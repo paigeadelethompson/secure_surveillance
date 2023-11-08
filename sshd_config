@@ -1,4 +1,3 @@
-Include                      /etc/ssh/sshd_config.d/*.conf
 Port                         22
 LoginGraceTime               8s
 PermitRootLogin              prohibit-password
@@ -8,10 +7,6 @@ MaxSessions                  4
 PubkeyAuthentication         yes
 PasswordAuthentication       no
 PermitEmptyPasswords         no
-KbdInteractiveAuthentication no
-UsePAM                       yes
-AllowAgentForwarding         yes
-AllowTcpForwarding           yes
-PrintMotd                    no
 Banner                       /etc/issue.net
 AcceptEnv                    LANG LC_*
+AuthorizedKeysFile           ssh/authorized_keys ssh/authorized_keys2

@@ -14,31 +14,41 @@ RUN apt -y autoremove
 
 RUN rm -rf /var/lib/apt/lists/*
 
+RUN rm /etc/apt/sources.list.d/debian.sources
+
+ADD sources.list /etc/apt/sources.list.d/sources.list
+
+RUN dpkg --add-architecture armhf
+
+RUN dpkg --add-architecture armel
+
 RUN apt -y update
 
-RUN apt -y install systemd systemd-resolved nano emacs vim
+ADD packages.txt /tmp/packages.txt
 
-RUN systemctl enable systemd-networkd
+RUN apt -y install $(cat /tmp/packages.txt | tr '\n' ' ')
 
-# RUN apt -y install cockpit/stable cockpit-389-ds/stable cockpit-bridge/stable cockpit-doc/stable cockpit-machines/stable cockpit-networkmanager/stable cockpit-packagekit/stable cockpit-podman/stable cockpit-sosreport/stable cockpit-storaged/stable cockpit-system/stable cockpit-tests/stable cockpit-ws/stable
+ADD startup.txt /tmp/startup.txt
 
-RUN apt -y install docker.io ffmpeg svt-av1 libaom-dev kmod
+RUN cat /tmp/startup.txt | xargs -i systemctl enable {}
 
-RUN systemctl enable docker
+ADD sshd_config /etc/ssh/sshd_config.d/sshd_config
 
-# RUN systemctl enable cockpit.socket
+ADD sudoers /etc/sudoers.d
 
-RUN apt -y install avahi-daemon/stable
+ADD fstab /etc/fstab
 
-RUN apt -y install locales
+ADD issue.net /etc/issue.net
 
-RUN apt -y install wpasupplicant
+ADD 10-eth.network /etc/systemd/network
 
-RUN apt -y install hostapd iw tcpdump socat
+ADD 10-usb.network /etc/systemd/network
 
-RUN apt -y install aptitude ca-certificates fake-hwclock gnupg man-db manpages net-tools ntp usb-modeswitch ssh sudo wget xz-utils
+ADD 10-eth.network /etc/systemd/network
 
 RUN mkdir /home/pi
+
+RUN mkdir /home/pi/ssh
 
 RUN groupadd spi
 
@@ -54,27 +64,17 @@ RUN chown pi:pi /home/pi
 
 ADD profile /home/pi/.profile
 
-RUN apt -y install openssh-server
-
-RUN systemctl enable ssh
-
 RUN cd /usr/local/bin && wget https://raw.githubusercontent.com/raspberrypi/rpi-update/master/rpi-update
-
-ADD sources.list /etc/apt
-
-RUN apt update
 
 RUN mkdir -p /lib/modules
 
 RUN chmod +x /usr/local/bin/rpi-update
 
-RUN apt -y install curl binutils cmake git build-essential
-
 RUN echo y | /usr/local/bin/rpi-update
 
-RUN echo 'dwc_otg.lpm_enable=0 console=ttyAMA1,115200n8 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait net.ifnames=0' > /boot/cmdline.txt
+ADD cmdline.txt /boot/cmdline.txt
 
-RUN echo $'ngpu_mem=16\narm_64bit=1\ndtoverlay=vc4-fkms-v3d' > /boot/config.txt
+ADD config.txt /boot/config.txt
 
 RUN cd /tmp
 
@@ -82,31 +82,26 @@ RUN git clone https://github.com/raspberrypi/userland /usr/src/userland
 
 RUN cd /usr/src/userland ; ./buildme --aarch64
 
-RUN dpkg --add-architecture armhf
+RUN usermod -U pi
 
-RUN dpkg --add-architecture armel
-
-RUN apt -y update
-
-RUN apt -y install libc6:armhf libc6:armel
-
-RUN usermod -U root
-
-RUN passwd -d root
-
-RUN apt -y install motion
-
-RUN usermod -G pi motion
+RUN passwd -d pi
 
 RUN echo '/opt/vc/lib' > /etc/ld.so.conf.d/00-vmcs.conf
 
-RUN echo 'Defaults secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/vc/bin"' > /etc/sudoers.d/opt-path
-
 ADD 99-com.rules /etc/udev/rules.d/99-com.rules
-
-RUN systemctl enable motion
 
 RUN apt -y autoremove
 
 RUN rm -rf /var/lib/apt/lists/*
 
+# Distribution specific additions
+
+RUN usermod -G pi motion
+
+RUN rm -rf /etc/motion
+
+RUN mkdir /etc/motion
+
+ADD motion.conf /etc/motion
+
+RUN chown -R motion:motion /etc/motion
