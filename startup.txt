@@ -1,4 +1,3 @@
-docker
 ssh
 motion
 systemd-networkd
