@@ -105,3 +105,6 @@ qemu-system-aarch64                                                             
 -device usb-net,netdev=net0                                                                                                                \
 -device usb-kbd
 ```
+
+# TODO 
+- OS boots, on QEMU and on a Raspi 3, this system needs to be put to the test and camera configuration is incomplete.
