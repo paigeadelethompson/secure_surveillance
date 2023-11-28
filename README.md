@@ -11,7 +11,7 @@ Parts list: https://www.amazon.com/hz/wishlist/ls/50G0MY6VFOCH?ref_=wl_share
 ### Extend the storage / home directory partition 
 - Edit the card with parted, delete partition 3 and recreate it with the desired extents, specify that it is an NTFS partition.
 - Do not format this partition, once the partition table is recreated simply mount the partition as if it were already formatted to test:
-
+- TODO fsck?? 
 ```
 root@xps-9310:/# parted /dev/mmcblk0
 GNU Parted 3.5
@@ -34,10 +34,25 @@ Number  Start   End     Size    Type     File system  Flags
 Partition type?  primary/extended? primary                                
 File system type?  [ext2]? ntfs
 Start? 3128                                                               
-End? -1                                                                   
+End? -1
+(parted) p                                                                
+Model: SD SD16G (sd/mmc)
+Disk /dev/mmcblk0: 7994MB
+Sector size (logical/physical): 512B/512B
+Partition Table: msdos
+Disk Flags: 
+
+Number  Start   End     Size    Type     File system  Flags
+ 1      1049kB  256MB   255MB   primary  fat32        boot, lba
+ 2      256MB   3128MB  2872MB  primary  ext4
+ 3      3128MB  7993MB  4865MB  primary
+
+                                                                   
 (parted) quit
 Information: You may need to update /etc/fstab.
-
+# fsck.exfat /dev/mmcblk0p3 
+exfatprogs version : 1.2.0
+/dev/mmcblk0p3: clean. directories 6, files 2
 # mount /dev/mmcblk0p3 /mnt
 # tree /mnt
 /mnt
@@ -50,8 +65,6 @@ Information: You may need to update /etc/fstab.
     └── authorized_keys
 
 6 directories, 2 files
-# df | grep mmcblk0p3
-/dev/mmcblk0p3       4268032       288   4267744   1% /mnt
 # mount | grep /mnt
 /dev/mmcblk0p3 on /mnt type exfat (rw,relatime,fmask=0022,dmask=0022,iocharset=utf8,errors=remount-ro)
 ```
