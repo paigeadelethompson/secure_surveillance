@@ -76,7 +76,7 @@ mounted with virtual attributes by the OS at boot:
 /dev/mmcblk0p3 /home/pi exfat defaults,nofail,uid=4000,gid=5000,dmask=007,fmask=117 0 0
 ```
 
-And all services which need read/write access to the storage FS will need to be a member of the `pi` group. 
+And all services which need read/write access to the storage FS are to be a member of the `pi` group. 
 
 # Testing with QEmu 
 
