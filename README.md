@@ -5,7 +5,7 @@ Parts list: https://www.amazon.com/hz/wishlist/ls/50G0MY6VFOCH?ref_=wl_share
 
 ## Installation (Raspi)
 
-- Download zip from releases page; minimum 8GB micro SDHC card required
+- Download zip from releases page; minimum ~8GB micro SDHC card required
 - `dd if=installer.bin of=/dev/mmcblk0 bs=1M status=progress`
 
 ### Extend the storage / home directory partition 
