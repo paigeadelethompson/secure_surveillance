@@ -10,7 +10,7 @@ This operating system image is produced entirely using a Github Workflow, if I c
 - Download zip from releases page; minimum ~8GB micro SDHC card required
 - `dd if=installer.bin of=/dev/mmcblk0 bs=1M status=progress`
 
-### Extend the storage / home directory partition 
+### Extend the storage / home directory partition (Use as large of an SD card as you want)
 - Edit the card with parted, delete partition 3 and recreate it with the desired extents, specify that it is an NTFS partition.
 - Do not format this partition, once the partition table is recreated simply mount the partition as if it were already formatted to test:
   
