@@ -1,7 +1,10 @@
 # Secure Surveillance System 
 Based around Raspberry Pi 3/4/5 / EasyCap USB. 
 
-Parts list: https://www.amazon.com/hz/wishlist/ls/50G0MY6VFOCH?ref_=wl_share
+Equipment list: https://www.amazon.com/hz/wishlist/ls/50G0MY6VFOCH?ref_=wl_share
+
+This list is fairly curated but you're welcome to shop around. This is a recipe for probably the best kind of surveillance system you can get and it will work well, but there are some things worth understanding about it which could be a nightmare for certain people. In a pinch I could support this for a client no problem. Admittedly there's a lot to be said for low voltage tech and just making Linux work correctly and it's not always trivial. This is here for anybody 
+that can appreciate it, with no gurantees except for what you can gurantee yourself.
 
 This operating system image is produced entirely using a Github Workflow, if I can't maintain this then surely somebody else can.
 
