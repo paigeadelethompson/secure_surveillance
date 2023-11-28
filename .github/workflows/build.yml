@@ -25,7 +25,7 @@ jobs:
     - name: Mount installer.bin as loopback device
       run: sudo losetup -P /dev/loop254 installer.bin
     - name: Create GPT disk label
-      run: sudo parted /dev/loop254 mklabel gpt
+      run: sudo parted /dev/loop254 mklabel msdo
     - name: Create BOOT partition
       run: sudo parted /dev/loop254 mkpart primary fat32 1 256
     - name: Create SYSTEM partition
