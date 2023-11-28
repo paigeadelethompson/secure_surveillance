@@ -115,7 +115,8 @@ ip=192.168.180.120:192.168.180.100:192.168.180.1:255.255.255.0::enp1s0:off
 
 However systemd-networkd is configured to lease from DHCP or self-assign and should even be reachable by self assigned address if mDNS is available.
 
-The cmdline.txt and authorized_keys (SSH) file live on separate partitions but both partitions are accessible from a Windows, MacOS, or Linux system.
+The cmdline.txt and authorized_keys (SSH) file live on separate partitions but both partitions are accessible from a Windows, MacOS, or Linux system. An SSH key 
+is required for access and will need to be configured.
 
 ## TODO 
 - OS boots, on QEMU and on a Raspi 3, this system needs to be put to the test and camera configuration is incomplete.
