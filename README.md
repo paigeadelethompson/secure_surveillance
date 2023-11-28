@@ -3,6 +3,8 @@ Based around Raspberry Pi 3/4/5 / EasyCap USB.
 
 Parts list: https://www.amazon.com/hz/wishlist/ls/50G0MY6VFOCH?ref_=wl_share
 
+This operating system image is produced entirely using a Github Workflow, if I can't maintain this then surely somebody else can.
+
 ## Installation (Raspi)
 
 - Download zip from releases page; minimum ~8GB micro SDHC card required
