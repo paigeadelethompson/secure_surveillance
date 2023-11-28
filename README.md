@@ -13,7 +13,7 @@ Parts list: https://www.amazon.com/hz/wishlist/ls/50G0MY6VFOCH?ref_=wl_share
 - Do not format this partition, once the partition table is recreated simply mount the partition as if it were already formatted to test:
   
 ```
-root@xps-9310:/# parted /dev/mmcblk0
+# parted /dev/mmcblk0
 GNU Parted 3.5
 Using /dev/mmcblk0
 Welcome to GNU Parted! Type 'help' to view a list of commands.
