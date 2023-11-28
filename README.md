@@ -11,7 +11,7 @@ Parts list: https://www.amazon.com/hz/wishlist/ls/50G0MY6VFOCH?ref_=wl_share
 ### Extend the storage / home directory partition 
 - Edit the card with parted, delete partition 3 and recreate it with the desired extents, specify that it is an NTFS partition.
 - Do not format this partition, once the partition table is recreated simply mount the partition as if it were already formatted to test:
-- TODO fsck?? 
+  
 ```
 root@xps-9310:/# parted /dev/mmcblk0
 GNU Parted 3.5
@@ -69,7 +69,14 @@ exfatprogs version : 1.2.0
 /dev/mmcblk0p3 on /mnt type exfat (rw,relatime,fmask=0022,dmask=0022,iocharset=utf8,errors=remount-ro)
 ```
 
-This partition is exfat (FAT64) and is accessible from Windows and MacOS computers. Unlike FAT32, ExFAT is not limited to 32GB, which ultimately will be ideal for video recording and retention.
+This partition is exfat (FAT64) and is accessible from Windows and MacOS computers. Unlike FAT32, ExFAT is not limited to 32GB, which ultimately will be ideal for video recording and retention. One other caveat is that ExFAT like FAT32 has a very rudimentary file attribute label, so to work around this the filesystem is
+mounted with virtual attributes by the OS at boot:
+
+```
+/dev/mmcblk0p3 /home/pi exfat defaults,nofail,uid=4000,gid=5000,dmask=007,fmask=117 0 0
+```
+
+And all services which need read/write access to the storage FS will need to be a member of the `pi` group. 
 
 # Testing with QEmu 
 
