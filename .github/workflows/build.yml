@@ -32,12 +32,12 @@ jobs:
       run: sudo parted /dev/loop254 mkpart primary ext2 256 3128
     - name: Create HOME partition
       run: sudo parted /dev/loop254 mkpart primary ntfs 3128 7500
-    - name: Label BOOT 
-      run: sudo parted /dev/loop254 name 1 BOOT
-    - name: Label SYSTEM
-      run: sudo parted /dev/loop254 name 2 SYSTEM
-    - name: Label HOME
-      run: sudo parted /dev/loop254 name 3 HOME
+#    - name: Label BOOT 
+#      run: sudo parted /dev/loop254 name 1 BOOT
+#    - name: Label SYSTEM
+#      run: sudo parted /dev/loop254 name 2 SYSTEM
+#    - name: Label HOME
+#      run: sudo parted /dev/loop254 name 3 HOME
     - name: Toogle boot flag on boot partition
       run: sudo parted /dev/loop254 set 1 boot on
     - name: Create BOOT filesystem
