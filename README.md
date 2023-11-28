@@ -56,7 +56,7 @@ Information: You may need to update /etc/fstab.
 /dev/mmcblk0p3 on /mnt type exfat (rw,relatime,fmask=0022,dmask=0022,iocharset=utf8,errors=remount-ro)
 ```
 
-This partition is extfat (FAT64) and is accessible from Windows and MacOS computers. 
+This partition is exfat (FAT64) and is accessible from Windows and MacOS computers. Unlike FAT32, ExFAT is not limited to 32GB, which ultimately will be ideal for video recording and retention.
 
 # Testing with QEmu 
 
