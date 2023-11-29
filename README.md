@@ -113,7 +113,7 @@ qemu-system-aarch64                                                             
 Network configuration can be specified in cmdline.txt:
 
 ```
-ip=192.168.180.120:192.168.180.100:192.168.180.1:255.255.255.0::enp1s0:off
+ip=192.168.180.120:192.168.180.100:192.168.180.1:255.255.255.0::eth0:off
 ```
 
 However systemd-networkd is configured to lease from DHCP or self-assign and should even be reachable by self assigned address if mDNS is available.
