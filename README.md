@@ -1,3 +1,6 @@
+# Shelved 
+this was a very successful experimeent though it could stand to be re-written. A similar build of Void Linux was made for the uConsole in light of this project, and it can be found here: https://github.com/Ravenhammer-Research/void-uconsole
+
 # Secure Surveillance System 
 Based around Raspberry Pi 3/4/5 / EasyCap USB. 
 
